@@ -84,7 +84,7 @@ def create_accueil_layout():
                     # Fonctionnalité 3
                     html.Div([
                         html.I(className="fas fa-robot", style=accueil_styles["feature_icon"]),
-                        html.H3("Assistant virtuel", style=accueil_styles["feature_title"]),
+                        html.H3("EDA Assistant", style=accueil_styles["feature_title"]),
                         html.P("Interagissez avec notre assistant intelligent pour analyser vos données.", style=accueil_styles["feature_desc"])
                     ], style=accueil_styles["feature_card"]),
                 ], style=accueil_styles["features_container"])

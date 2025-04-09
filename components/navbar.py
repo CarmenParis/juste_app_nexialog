@@ -27,7 +27,7 @@ def create_navbar_content(pathname):
     
     # Déterminer le contenu de la navbar en fonction de la page
     if pathname == '/assistant':
-        # Version pour la page Assistant - conserve la navbar originale avec ESEFIRIUS
+        # Version pour la page EDA Assistant - conserve la navbar originale avec ESEFIRIUS
         return html.Div([
             dbc.Container([
                 html.Div([
@@ -50,7 +50,7 @@ def create_navbar_content(pathname):
                     html.Div([
                         html.A("Page d'accueil", href="/accueil", 
                                style={'color': 'rgba(255, 255, 255, 0.8)', 'margin': '0 15px', 'textDecoration': 'none'}),
-                        html.A("Assistant", href="/assistant", 
+                        html.A("EDA Assistant", href="/assistant", 
                                style={'color': '#fff', 'margin': '0 15px', 'fontWeight': '500', 'textDecoration': 'none'}),
                         html.A("Aide", href="/aide", 
                                style={'color': 'rgba(255, 255, 255, 0.8)', 'margin': '0 15px', 'textDecoration': 'none'})
@@ -74,7 +74,7 @@ def create_navbar_content(pathname):
                     html.Div([
                         html.A("Page d'accueil", href="/accueil", 
                                style={'color': 'rgba(255, 255, 255, 0.8)', 'margin': '0 15px', 'textDecoration': 'none'}),
-                        html.A("Assistant", href="/assistant", 
+                        html.A("EDA Assistant", href="/assistant", 
                                style={'color': '#fff', 'margin': '0 15px', 'fontWeight': '500', 'textDecoration': 'none'}),
                         html.A("Aide", href="/aide", 
                                style={'color': 'rgba(255, 255, 255, 0.8)', 'margin': '0 15px', 'textDecoration': 'none'})
