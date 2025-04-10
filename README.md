@@ -1,4 +1,4 @@
-# ESEFIRIUS - Assistant Réseau SFR
+# ESEFIRIUS - Assistant Réseau SFR <img src="images/SFR.png" alt="Logo SFR" width="100" height="100" align="right">
 
 ## Prérequis
 
