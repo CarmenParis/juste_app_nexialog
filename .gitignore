@@ -1,2 +1,8 @@
 donnees.parquet
 /.venv
+lof.csv
+# Ignorer les dossiers de cache Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
