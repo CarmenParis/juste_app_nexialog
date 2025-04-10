@@ -2,7 +2,7 @@
 # Composant de barre latérale spécifique pour la page de détection des anomalies
 
 import dash
-from dash import html, dcc, callback, Input, Output, State, ALL, MATCH
+from dash import html, dcc, callback, Input, Output, State, ALL, MATCH, no_update
 import dash_bootstrap_components as dbc
 from styles.theme import sidebar_styles, sfr_colors
 from utils.data_loader import DataManager
@@ -205,48 +205,48 @@ def init_isolation_forest_sidebar_callbacks(app):
         filtered_olts = [olt for olt in all_olts if search_term and search_term.lower() in olt.lower()]
         return [{"label": olt, "value": olt} for olt in filtered_olts]
     
-    # Callbacks pour gérer les boutons de contamination
+    # Callbacks pour gérer les boutons de contamination et mettre à jour les filtres automatiquement
     @app.callback(
         [Output("contamination-0001", "active"),
          Output("contamination-0005", "active"),
          Output("contamination-001", "active"),
-         Output("current-contamination", "data")],
+         Output("current-contamination", "data"),
+         Output("isolation-forest-filter-values", "data")],  # Nouvelle sortie
         [Input("contamination-0001", "n_clicks"),
          Input("contamination-0005", "n_clicks"),
-         Input("contamination-001", "n_clicks")]
-    )
-    def update_contamination_selection(clicks_0001, clicks_0005, clicks_001):
-        ctx = dash.callback_context
-        if not ctx.triggered:
-            # Par défaut, 0.005 est sélectionné
-            return False, True, False, 0.005
-        
-        button_id = ctx.triggered[0]['prop_id'].split('.')[0]
-        
-        if button_id == "contamination-0001":
-            return True, False, False, 0.001
-        elif button_id == "contamination-0005":
-            return False, True, False, 0.005
-        elif button_id == "contamination-001":
-            return False, False, True, 0.01
-        
-        # Par défaut, 0.005 est sélectionné
-        return False, True, False, 0.005
-    
-    # Callback pour appliquer les filtres et mettre à jour le store
-    @app.callback(
-        Output("isolation-forest-filter-values", "data"),
-        Input("apply-anomaly-filters", "n_clicks"),
+         Input("contamination-001", "n_clicks")],
         [State("olt-filter", "value"),
          State("date-range-filter", "start_date"),
          State("date-range-filter", "end_date"),
          State("hour-filter", "value"),
-         State("current-contamination", "data")],
-        prevent_initial_call=True
+         State("isolation-forest-filter-values", "data")]  # Nouveaux états
     )
-    def apply_filters(n_clicks, olt_value, start_date, end_date, hour_value, contamination):
-        if n_clicks is None:
-            return {}
+    def update_contamination_selection(clicks_0001, clicks_0005, clicks_001, 
+                                      olt_value, start_date, end_date, hour_value, current_filters):
+        ctx = dash.callback_context
+        if not ctx.triggered:
+            # Par défaut, 0.005 est sélectionné
+            return False, True, False, 0.005, dash.no_update
+        
+        button_id = ctx.triggered[0]['prop_id'].split('.')[0]
+        
+        # Déterminer la nouvelle valeur de contamination
+        if button_id == "contamination-0001":
+            new_contamination = 0.001
+            active_states = (True, False, False)
+        elif button_id == "contamination-0005":
+            new_contamination = 0.005
+            active_states = (False, True, False)
+        elif button_id == "contamination-001":
+            new_contamination = 0.01
+            active_states = (False, False, True)
+        else:
+            new_contamination = 0.005
+            active_states = (False, True, False)
+        
+        # Mettre à jour les filtres comme dans apply_filters
+        if current_filters is None:
+            current_filters = {}
         
         # Convertir les dates au format approprié
         date_range = []
@@ -260,14 +260,60 @@ def init_isolation_forest_sidebar_callbacks(app):
                 date_range.append(current_date.strftime("%Y-%m-%d"))
                 current_date += timedelta(days=1)
         
-        return {
+        # Préserver les valeurs actuelles des filtres et mettre à jour la contamination
+        current_filters.update({
+            "olt_name": olt_value,
+            "start_date": start_date.split('T')[0] if start_date else None,
+            "end_date": end_date.split('T')[0] if end_date else None,
+            "date_range": date_range,
+            "hour": hour_value,
+            "contamination": new_contamination
+        })
+        
+        return (*active_states, new_contamination, current_filters)
+    
+    # Callback pour appliquer les filtres
+    @app.callback(
+        Output("isolation-forest-filter-values", "data", allow_duplicate=True),  # Ajout de allow_duplicate
+        Input("apply-anomaly-filters", "n_clicks"),
+        [State("olt-filter", "value"),
+         State("date-range-filter", "start_date"),
+         State("date-range-filter", "end_date"),
+         State("hour-filter", "value"),
+         State("current-contamination", "data"),
+         State("isolation-forest-filter-values", "data")],
+        prevent_initial_call=True
+    )
+    def apply_filters(n_clicks, olt_value, start_date, end_date, hour_value, contamination, current_filters):
+        if n_clicks is None:
+            return dash.no_update
+        
+        # Convertir les dates au format approprié
+        date_range = []
+        if start_date and end_date:
+            start = datetime.strptime(start_date.split('T')[0], "%Y-%m-%d")
+            end = datetime.strptime(end_date.split('T')[0], "%Y-%m-%d")
+            
+            # Générer toutes les dates dans la plage
+            current_date = start
+            while current_date <= end:
+                date_range.append(current_date.strftime("%Y-%m-%d"))
+                current_date += timedelta(days=1)
+        
+        # Mettre à jour les filtres
+        if current_filters is None:
+            current_filters = {}
+            
+        current_filters.update({
             "olt_name": olt_value,
             "start_date": start_date.split('T')[0] if start_date else None,
             "end_date": end_date.split('T')[0] if end_date else None,
             "date_range": date_range,
             "hour": hour_value,
             "contamination": contamination
-        }
+        })
+        
+        return current_filters
     
     # Callback pour réinitialiser les filtres
     @app.callback(
