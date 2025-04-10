@@ -51,8 +51,3 @@ L'application sera accessible à l'adresse : `http://127.0.0.1:8050`
 - `styles/` : Feuilles de style et thèmes
 - `data/` : Fichiers de données
 
-## Dépannage
-
-- Assurez-vous que toutes les dépendances sont installées correctement
-- Vérifiez que les chemins des fichiers sont corrects
-- Consultez les logs pour plus d'informations sur d'éventuelles erreurs
