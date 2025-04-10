@@ -13,10 +13,16 @@ from components.sidebar import create_sidebar
 from components.accueil import create_accueil_layout
 # Importer le composant de modélisation
 from components.modelisation import create_modelisation_layout
+from components.alisa_lof_sidebar import create_alisa_lof_sidebar
+
+from components.alisa_lof_sidebar import create_alisa_lof_sidebar, init_alisa_lof_sidebar_callbacks
+from callbacks.alisa_lof_callbacks import init_alisa_lof_callbacks
+
 # Importer la nouvelle sidebar pour Isolation Forest
 from components.isolation_forest_sidebar import create_isolation_forest_sidebar, init_isolation_forest_sidebar_callbacks
 from styles.theme import main_content_style, custom_css
 
+from callbacks.alisa_lof_callbacks import init_alisa_lof_callbacks
 # Initialiser l'application
 app = dash.Dash(__name__,
                 external_stylesheets=[
@@ -129,9 +135,41 @@ def display_page(pathname):
         elif pathname.lower() == '/modelisation/alisa':
             return html.Div([
                 dbc.Container([
-                    html.H1("Modèle de Alisa", className="my-4"),
-                    html.P("Cette page affichera les résultats du modèle de Alisa."),
-                    html.A("Retour aux modèles", href="/modelisation", className="btn btn-outline-primary mt-3")
+                    dbc.Row([
+                        # Sidebar for LOF model
+                        dbc.Col(create_alisa_lof_sidebar(), width=3, className="sidebar-column"),
+                        
+                        # Main content area
+                        dbc.Col([
+                            html.H1("Détection des anomalies par Local Outlier Factor (LOF)", className="my-4"),
+                            
+                            # Explanation section
+                            html.Div([
+                                html.H4("Description du modèle"),
+                                html.P("""
+                                    Le Local Outlier Factor (LOF) est un algorithme de détection d'anomalies 
+                                    qui mesure la localité d'une anomalie par rapport à ses voisins. Il permet 
+                                    d'identifier des points de données qui sont significativement différents 
+                                    de leur environnement local.
+                                """, className="mb-4"),
+                            ], className="mb-4 p-3 border rounded"),
+                            
+                            # Container for dynamic graphs and tables
+                            html.Div([
+                                dcc.Loading(
+                                    id="loading-lof-anomalies",
+                                    type="circle",
+                                    children=[
+                                        html.Div(id="lof-visualization-container")
+                                    ]
+                                )
+                            ], className="mt-4"),
+                            
+                            # Button to return to modelisation page
+                            html.A("Retour aux modèles", href="/modelisation", 
+                                className="btn btn-outline-primary mt-3 mb-4")
+                        ], width=9, className="content-column")
+                    ], className="pt-4")
                 ], fluid=True)
             ], style=main_content_style)
         elif pathname.lower() == '/modelisation/lia':
@@ -184,6 +222,10 @@ from callbacks import chat_callbacks, sidebar_callbacks
 # Importer les callbacks pour la page de détection d'anomalies
 from callbacks.isolation_forest_callbacks import init_isolation_forest_callbacks
 init_isolation_forest_callbacks(app)
+
+# In the section where you initialize callbacks
+init_alisa_lof_sidebar_callbacks(app)
+init_alisa_lof_callbacks(app)
 
 # Auto-scroll callback
 from dash import clientside_callback

@@ -45,12 +45,12 @@ def create_modelisation_layout():
                 html.Div([
                     html.A([
                         html.Div([
-                            html.I(className="fas fa-project-diagram", style=modelisation_styles["model_icon"]),
-                            html.H3("Modele de Alisa", style=modelisation_styles["model_title"]),
-                            html.P("Info modele", 
-                                   style=modelisation_styles["model_desc"])
+                            html.I(className="fas fa-chart-line", style=modelisation_styles["model_icon"]),
+                            html.H3("LOF", style=modelisation_styles["model_title"]),
+                            html.P("Détection d'anomalies par Local Outlier Factor",
+                                style=modelisation_styles["model_desc"])
                         ], style=modelisation_styles["model_content"])
-                    ], href="/modelisation/Alisa", style=modelisation_styles["model_link"])
+                    ], href="/modelisation/alisa", style=modelisation_styles["model_link"])
                 ], style=modelisation_styles["model_card"]),
             ], style=modelisation_styles["models_container"]),
             
