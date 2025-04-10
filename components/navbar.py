@@ -52,6 +52,8 @@ def create_navbar_content(pathname):
                                style={'color': 'rgba(255, 255, 255, 0.8)', 'margin': '0 15px', 'textDecoration': 'none'}),
                         html.A("EDA Assistant", href="/assistant", 
                                style={'color': '#fff', 'margin': '0 15px', 'fontWeight': '500', 'textDecoration': 'none'}),
+                        html.A("Modélisation", href="/modelisation", 
+                               style={'color': 'rgba(255, 255, 255, 0.8)', 'margin': '0 15px', 'textDecoration': 'none'}),
                         html.A("Aide", href="/aide", 
                                style={'color': 'rgba(255, 255, 255, 0.8)', 'margin': '0 15px', 'textDecoration': 'none'})
                     ], style={'display': 'flex', 'marginLeft': 'auto'})
@@ -76,6 +78,8 @@ def create_navbar_content(pathname):
                                style={'color': 'rgba(255, 255, 255, 0.8)', 'margin': '0 15px', 'textDecoration': 'none'}),
                         html.A("EDA Assistant", href="/assistant", 
                                style={'color': '#fff', 'margin': '0 15px', 'fontWeight': '500', 'textDecoration': 'none'}),
+                        html.A("Modélisation", href="/modelisation", 
+                               style={'color': 'rgba(255, 255, 255, 0.8)', 'margin': '0 15px', 'textDecoration': 'none'}),
                         html.A("Aide", href="/aide", 
                                style={'color': 'rgba(255, 255, 255, 0.8)', 'margin': '0 15px', 'textDecoration': 'none'})
                     ], style={'display': 'flex', 'marginLeft': 'auto'})
