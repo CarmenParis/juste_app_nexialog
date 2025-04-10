@@ -494,3 +494,73 @@ custom_css = '''
     }
 </style>
 '''
+
+# Styles pour la page de modélisation
+modelisation_styles = {
+    "modelisation_container": {
+        "padding": "20px 0",
+        "backgroundColor": "#f9f9f9",
+        "minHeight": "100vh"
+    },
+    "header": {
+        "textAlign": "center",
+        "padding": "30px 0",
+        "marginBottom": "20px"
+    },
+    "page_title": {
+        "fontSize": "2.5rem",
+        "fontWeight": "bold",
+        "marginBottom": "10px"
+    },
+    "description_container": {
+        "textAlign": "center",
+        "marginBottom": "40px"
+    },
+    "description": {
+        "fontSize": "1.2rem",
+        "color": sfr_colors['dark_grey']
+    },
+    "models_container": {
+        "display": "flex",
+        "flexWrap": "wrap",
+        "justifyContent": "center",
+        "gap": "30px"
+    },
+    "model_card": {
+        "width": "270px",
+        "backgroundColor": sfr_colors['white'],
+        "borderRadius": "10px",
+        "overflow": "hidden",
+        "boxShadow": "0 4px 8px rgba(0, 0, 0, 0.1)",
+        "transition": "transform 0.3s ease, box-shadow 0.3s ease",
+        ":hover": {
+            "transform": "translateY(-5px)",
+            "boxShadow": "0 8px 16px rgba(0, 0, 0, 0.2)"
+        }
+    },
+    "model_link": {
+        "textDecoration": "none",
+        "color": "inherit",
+        "display": "block",
+        "height": "100%"
+    },
+    "model_content": {
+        "padding": "25px",
+        "textAlign": "center"
+    },
+    "model_icon": {
+        "fontSize": "3rem",
+        "color": sfr_colors['red'],
+        "marginBottom": "15px"
+    },
+    "model_title": {
+        "fontSize": "1.5rem",
+        "color": sfr_colors['dark_grey'],
+        "marginBottom": "15px"
+    },
+    "model_desc": {
+        "color": sfr_colors['dark_grey'],
+        "fontSize": "0.9rem"
+    }
+}
+
