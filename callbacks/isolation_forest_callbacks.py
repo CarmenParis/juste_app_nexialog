@@ -298,19 +298,7 @@ def init_isolation_forest_callbacks(app):
         
         # Créer le contenu de la visualisation
         content = [
-            # Graphique principal
-            dbc.Card([
-                dbc.CardHeader("Trafic réseau et anomalies détectées"),
-                dbc.CardBody([
-                    dcc.Graph(
-                        id="anomaly-graph-main",
-                        figure=fig_main,
-                        config={'displayModeBar': False}
-                    )
-                ])
-            ], className="mb-4"),
-            
-            # Statistiques d'anomalies
+            # Statistiques d'anomalies (Le graphique "Trafic réseau et anomalies détectées" a été supprimé)
             dbc.Card([
                 dbc.CardHeader("Statistiques d'anomalies"),
                 dbc.CardBody([
