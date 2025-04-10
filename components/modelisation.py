@@ -17,7 +17,7 @@ def create_modelisation_layout():
             html.Div([
                 html.H1([
                     html.Span("M", style={"color": sfr_colors['red']}),
-                    html.Span("Modélisation", style={"color": sfr_colors['dark_grey']})
+                    html.Span("odélisation", style={"color": sfr_colors['dark_grey']})
                 ], style=modelisation_styles["page_title"])
             ], style=modelisation_styles["header"]),
             
@@ -29,19 +29,7 @@ def create_modelisation_layout():
             
             # Conteneur pour les boxes de modèles
             html.Div([
-                # Modèle 1
-                html.Div([
-                    html.A([
-                        html.Div([
-                            html.I(className="fas fa-chart-line", style=modelisation_styles["model_icon"]),
-                            html.H3("Modèle de Carmen", style=modelisation_styles["model_title"]),
-                            html.P("Info modele", 
-                                   style=modelisation_styles["model_desc"])
-                        ], style=modelisation_styles["model_content"])
-                    ], href="/modelisation/carmen", style=modelisation_styles["model_link"])
-                ], style=modelisation_styles["model_card"]),
-                
-                # Modèle 2
+                # Modèle 1 (Nhi)
                 html.Div([
                     html.A([
                         html.Div([
@@ -53,19 +41,7 @@ def create_modelisation_layout():
                     ], href="/modelisation/nhi", style=modelisation_styles["model_link"])
                 ], style=modelisation_styles["model_card"]),
                 
-                # Modèle 3
-                html.Div([
-                    html.A([
-                        html.Div([
-                            html.I(className="fas fa-tree", style=modelisation_styles["model_icon"]),
-                            html.H3("Modele de Lia", style=modelisation_styles["model_title"]),
-                            html.P("Info modele", 
-                                   style=modelisation_styles["model_desc"])
-                        ], style=modelisation_styles["model_content"])
-                    ], href="/modelisation/Lia", style=modelisation_styles["model_link"])
-                ], style=modelisation_styles["model_card"]),
-                
-                # Modèle 4
+                # Modèle 2 (Alisa)
                 html.Div([
                     html.A([
                         html.Div([
